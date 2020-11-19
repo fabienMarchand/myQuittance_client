@@ -50,4 +50,12 @@ export default {
       .then((res) => res.data)
       .catch(errorHandler);
   },
+
+  create(segment, data){
+    console.log(segment, data);
+     return service.post(segment, data)
+     .then((res) => res.data);
+  }
+
+
 };
