@@ -55,7 +55,11 @@ export default {
     console.log(segment, data);
      return service.post(segment, data)
      .then((res) => res.data);
+  },
+
+  getAll(segment){
+    return service.get(segment)
+      .then((res) => res.data);
   }
-
-
+ 
 };

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import apiHandler from '../api/apiHandler';
-import InputForm from "../components/Forms/inputForm/InputForm";
-import TextArea from "../components/Forms/textAreaForm/textAreaForm";
+import FormRental from '../components/Forms/FormRental';
 
 class CreateRental extends Component {
   state = {
@@ -12,11 +11,47 @@ class CreateRental extends Component {
     fixedCost: 0,
     TVArate: 0,
     tenant: "",
-    owner: "",
-
+    owner:"",
     errorName: "",
     errorAdress: "",
+    selectOwner: "",
+    selectTenant: "",
+     comeFrom: "create",
   };
+
+  componentDidMount() {
+      //Get owner element
+      apiHandler.getAll("/owner")
+      .then((dbRes) => {
+        let tempObj = {};
+        Object.entries(dbRes).map(([key, value]) => {
+           Object.entries(value).map(([key1, value1]) => {
+              if(key1 === "completeName")  tempObj[key] = value1;
+              return null;
+             })
+             return null;
+        });
+        this.setState({
+          selectOwner: tempObj
+        });
+      });
+
+      //Get tenant element
+      apiHandler.getAll("/tenant")
+      .then((dbRes) => {
+        let tempObj = {};
+        Object.entries(dbRes).map(([key, value]) => {
+           Object.entries(value).map(([key1, value1]) => {
+              if(key1 === "completeName") tempObj[key] = value1;
+              return null;
+             })
+             return null;
+        });
+        this.setState({
+            selectTenant: tempObj
+        });
+      });
+  }
 
   handleChange = (e) => {
     const name = e.target.name;
@@ -35,14 +70,11 @@ class CreateRental extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, adress, rent, provision, fixedCost, TVArate } = this.state;
+    const { name, adress, rent, provision, fixedCost, TVArate, owner, tenant} = this.state;
 
-    if (name === "")
-      this.setState({ errorName: "Le nom ne doit pas être vide" });
-    if (adress === "")
-      this.setState({ errorAdress: "L'adresse ne doit pas être vide" });
+    if (name === "") this.setState({ errorName: "Le nom ne doit pas être vide" });
+    if (adress === "") this.setState({ errorAdress: "L'adresse ne doit pas être vide" });
    
-
     if (!name || !adress ) {
     } else {
       apiHandler.create("/rental", {
@@ -51,12 +83,15 @@ class CreateRental extends Component {
         rent,
         provision,
         fixedCost,
-        TVArate
+        TVArate,
+        owner, 
+        tenant
       });
     }
   };
 
   render() {
+
     return (
       <div>
         <form
@@ -71,55 +106,7 @@ class CreateRental extends Component {
               </h1>
             </header>
 
-            <InputForm type="text" name="name" value={this.state.name}>
-              Nom de la location
-            </InputForm>
-            <p className="help is-danger">{this.state.errorName}</p>
-
-            <TextArea
-              name="adress"
-              value={this.state.adress}
-              placeholder="Rue, code postal, ville (retour à la ligne conseillé)"
-            >
-              Adresse
-            </TextArea>
-            <p className="help is-danger">{this.state.errorAdress}</p>
-
-            <InputForm
-              type="number"
-              name="rent"
-              value={this.state.rent}
-              placeholder={this.state.rent}
-            >
-              Loyer
-            </InputForm>
-
-            <InputForm
-              type="number"
-              name="provision"
-              value={this.state.provision}
-              placeholder={this.state.provision}
-            >
-              Provisions pour charges
-            </InputForm>
-
-            <InputForm
-              type="number"
-              name="fixedCost"
-              value={this.state.fixedCost}
-              placeholder={this.state.fixedCost}
-            >
-              Charges Fixes
-            </InputForm>
-
-            <InputForm
-              type="number"
-              name="TVArate"
-              value={this.state.TVArate}
-              placeholder={this.state.TVArate}
-            >
-              Taux de TVA
-            </InputForm>
+            <FormRental rentals={this.state} />
 
             <div className="field is-grouped is-grouped-centered">
               <div className="control">

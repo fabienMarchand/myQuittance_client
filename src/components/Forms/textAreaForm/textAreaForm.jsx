@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 
 export class textAreaForm extends Component {
-    
     render() {
-        const {name, value, children, onChange, type, placeholder} = this.props;
+      //  const {name, value, children, onChange, type, placeholder} = this.props;
+      const {name, children,value, placeholder, onChange} = this.props;
         return (
-            <div class="field">
-            <label class="label" htmlFor={name}>{children}</label>
-            <div class="control">
-              <textarea name={name} class="textarea" placeholder={placeholder}></textarea>
+            <div className="field">
+            <label className="label" htmlFor={name}>{children}</label>
+            <div className="control">
+              <textarea name={name} 
+              className="textarea" 
+              placeholder={placeholder}
+              value={value}></textarea>
             </div>
             </div>
         )

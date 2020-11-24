@@ -13,8 +13,9 @@ class InputForm extends Component {
             type={type}
             placeholder={placeholder}
             name={name}
-            // value={value}
+            value={value}
             // onChange={onChange}
+            style={{pointerEvents : this.props.disable ? 'none' : 'auto' }}
           />
         </div>
       </div>
