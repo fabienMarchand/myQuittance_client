@@ -106,7 +106,7 @@ class CreateRental extends Component {
               </h1>
             </header>
 
-            <FormRental rentals={this.state} />
+            <FormRental rentals={this.state} comeFrom={this.state.comeFrom}/>
 
             <div className="field is-grouped is-grouped-centered">
               <div className="control">

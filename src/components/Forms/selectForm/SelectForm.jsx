@@ -2,14 +2,16 @@ import React, { Component } from "react";
 
 class SelectForm extends Component {
   render() {
-    const { name,children, selectOption } = this.props;
+    const { name,children,value, selectOption } = this.props;
 
     return (
       <div className="field">
         <label className="label">{children}</label>
         <div className="control">
           <div className="select">
-            <select name={name}>
+            <select name={name}
+              value = {value}
+            >
             <option>Sélectionner un(e) {children}</option>
               {Object.entries(selectOption).map(([key, value]) => (
                 <option key={key}>{value}</option>

@@ -8,6 +8,13 @@ import FormRental from '../components/Forms/FormRental'
 class EditRental extends Component {
 state = {
     rental: {},
+    tenant: "",
+    owner:"",
+    errorName: "",
+    errorAdress: "",
+    selectOwner: "",
+    selectTenant: "",
+    comeFrom: "edit",
 };
 
 
@@ -20,11 +27,43 @@ componentDidMount() {
     } else {
        // api.
     }
-     
+      //Get owner element
+      apiHandler.getAll("/owner")
+      .then((dbRes) => {
+        let tempObj = {};
+        Object.entries(dbRes).map(([key, value]) => {
+           Object.entries(value).map(([key1, value1]) => {
+              if(key1 === "completeName")  tempObj[key] = value1;
+              return null;
+             })
+             return null;
+        });
+        this.setState({
+          selectOwner: tempObj,
+        });
+      });
+
+      //Get tenant element
+      apiHandler.getAll("/tenant")
+      .then((dbRes) => {
+        let tempObj = {};
+        Object.entries(dbRes).map(([key, value]) => {
+           Object.entries(value).map(([key1, value1]) => {
+              if(key1 === "completeName") tempObj[key] = value1;
+              return null;
+             })
+             return null;
+        });
+        this.setState({
+            selectTenant: tempObj
+        });
+      });
+
+  
 }
 
     render() {
-       
+      
         return (
             <div>
                  <form
@@ -39,7 +78,11 @@ componentDidMount() {
               </h1>
             </header>
 
-            <FormRental rentals={this.state.rental}/>
+            <FormRental rentals={this.state.rental} 
+            comeFrom={this.state.comeFrom}
+            selectTenant={this.state.selectTenant}
+            selectOwner = {this.state.selectOwner}
+            />
 
             <div className="field is-grouped is-grouped-centered">
               <div className="control">

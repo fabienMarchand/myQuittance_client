@@ -4,11 +4,9 @@ import TextArea from "./textAreaForm/textAreaForm";
 import SelectForm from "./selectForm/SelectForm";
 
  class FormRental extends Component {
-
      state ={
         adress: this.props.rentals.adress    
      };
-
 
     handleChangeAdress = e =>{
         console.log("pouet: ")
@@ -18,7 +16,7 @@ import SelectForm from "./selectForm/SelectForm";
     }
 
     render() {
-        const {
+        let {
             name,
             adress,
             rent,
@@ -30,10 +28,15 @@ import SelectForm from "./selectForm/SelectForm";
             tenant,
             selectTenant,
             errorName,
-            errorAdress, 
+            errorAdress
+            
             } = this.props.rentals;
-       console.log("in formRental: ", this.props.rentals.adress)
-
+      
+        if(this.props.comeFrom === "edit"){
+            selectOwner = this.props.selectOwner;
+            selectTenant = this.props.selectTenant;
+        }
+      
         return (
             <div>
                 
@@ -48,7 +51,7 @@ import SelectForm from "./selectForm/SelectForm";
               onChange={this.handleChangeAdress}
               placeholder="Rue, code postal, ville (retour à la ligne conseillé)"
             >
-              {adress}
+              Adresse
             </TextArea>
             <p className="help is-danger">{errorAdress}</p> 
 
@@ -89,7 +92,7 @@ import SelectForm from "./selectForm/SelectForm";
             </InputForm>
 
 
-            {/* <SelectForm
+             <SelectForm
               name="owner"
               value={owner}
               selectOption={selectOwner}
@@ -103,7 +106,7 @@ import SelectForm from "./selectForm/SelectForm";
               selectOption={selectTenant}
             >
               Locataire
-            </SelectForm> */}
+            </SelectForm>   
             </div>
         )
     }

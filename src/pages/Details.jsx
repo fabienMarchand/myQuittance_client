@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import apiHandler from "../api/apiHandler";
-import _ from "lodash";
+
 import 'bulma/css/bulma.css';
 import { Link } from "react-router-dom";
 
