@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import apiHandler from "../api/apiHandler";
-import InputForm from "../components/Forms/inputForm/InputForm";
-import SelectForm from "../components/Forms/selectForm/SelectForm";
+import FormOwner from "../components/Forms/FormOwner";
 
 class CreateOwner extends Component {
   state = {
@@ -65,11 +64,7 @@ class CreateOwner extends Component {
   };
 
   render() {
-    const selectOption = {
-      Masculin: "Masculin",
-      Feminin: "Feminin",
-    };
-
+ 
     return (
       <div>
         <form
@@ -84,48 +79,7 @@ class CreateOwner extends Component {
               </h1>
             </header>
 
-            <InputForm type="text" name="lastName" value={this.state.lastName}>
-              Nom de famille
-            </InputForm>
-            <p className="help is-danger">{this.state.errorLastName}</p>
-
-            <InputForm
-              type="text"
-              name="firstName"
-              value={this.state.firstName}
-            >
-              Prénom
-            </InputForm>
-            <p className="help is-danger">{this.state.errorFirstName}</p>
-
-            <InputForm
-              type="email"
-              name="email"
-              value={this.state.email}
-              placeholder="Important pour la quittance"
-            >
-              Email
-            </InputForm>
-            <p className="help is-danger">{this.state.errorEmail}</p>
-
-            <InputForm
-              type="text"
-              name="city"
-              value={this.state.city}
-              placeholder="Important pour la quittance"
-            >
-              Ville
-            </InputForm>
-            <p className="help is-danger">{this.state.errorCity}</p>
-
-
-            <SelectForm
-              name="gender"
-              value={this.state.gender}
-              selectOption={selectOption}
-            >
-              Genre
-            </SelectForm>
+            <FormOwner owner={this.state} />
 
             <div className="field is-grouped is-grouped-centered">
               <div className="control">

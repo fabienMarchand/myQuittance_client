@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import apiHandler from "../api/apiHandler";
-import InputForm from "../components/Forms/inputForm/InputForm";
-import FormTenant from "../components/Forms/FormTenant"
+import FormTenant from "../components/Forms/FormTenant";
+
 class CreateTenant extends Component {
   state = {
     email: "",

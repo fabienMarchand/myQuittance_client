@@ -84,14 +84,20 @@ class Details extends Component {
           <a className="panel-block is-active" key={i}>
             <div className="columns ">
               <div className="column is-size-5 has-text-centered	has-text-weight-bold">
-                {owner.lastName} {owner.firstName} : {owner._id}
+                {owner.lastName} {owner.firstName}
               </div>
               <div className="column has-text-centered">{owner.email}</div>
              
               <div className="column has-text-centered">
                 <div className="buttons">
-                  <button className="button is-primary">Modifier</button>
-                   <button className="button is-danger">Supprimer</button>
+                  <button className="button is-primary">
+                  <Link to={{
+                      pathname:`/owner/${owner.lastName}-${owner.firstName} `,
+                      ownerLinked: { owner }
+                      }} 
+                      > Modifier</Link>
+                  </button>
+                  <button className="button is-danger">Supprimer</button>
                 </div>
             </div>
 
