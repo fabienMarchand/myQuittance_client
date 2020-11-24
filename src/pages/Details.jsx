@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import apiHandler from "../api/apiHandler";
-
 import 'bulma/css/bulma.css';
 import { Link } from "react-router-dom";
 
@@ -64,7 +63,13 @@ class Details extends Component {
               
                <div className="column has-text-centered">
                 <div className="buttons">
-                  <button className="button is-primary">Modifier</button>
+                  <button className="button is-primary">
+                  <Link to={{
+                      pathname:`/tenant/${tenant.lastName}-${tenant.firstName} `,
+                      tenantLinked: { tenant }
+                      }} 
+                      > Modifier</Link>
+                  </button>
                   <button className="button is-danger">Supprimer</button>
                 </div>
             </div>

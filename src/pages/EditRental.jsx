@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import apiHandler from "../api/apiHandler";
-import _ from "lodash";
 import 'bulma/css/bulma.css';
-import { Link } from "react-router-dom";
-import FormRental from '../components/Forms/FormRental'
+import FormRental from '../components/Forms/FormRental';
 
 class EditRental extends Component {
 state = {
@@ -58,8 +56,6 @@ componentDidMount() {
             selectTenant: tempObj
         });
       });
-
-  
 }
 
     render() {
@@ -74,7 +70,7 @@ componentDidMount() {
           <div className="container">
             <header className="section-header">
               <h1 className="title has-text-centered is-spaced is-size-4-mobile has-text-weight-bold">
-                Modifier la location location
+                Modifier la location 
               </h1>
             </header>
 

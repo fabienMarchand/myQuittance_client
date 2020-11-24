@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import apiHandler from "../api/apiHandler";
 import InputForm from "../components/Forms/inputForm/InputForm";
-
-export class CreateTenant extends Component {
+import FormTenant from "../components/Forms/FormTenant"
+class CreateTenant extends Component {
   state = {
     email: "",
     lastName: "",
@@ -70,33 +70,7 @@ export class CreateTenant extends Component {
               </h1>
             </header>
 
-            <InputForm type="text" name="lastName" value={this.state.lastName}>
-              Nom de famille
-            </InputForm>
-            <p className="help is-danger">{this.state.errorLastName}</p>
-
-            <InputForm
-              type="text"
-              name="firstName"
-              value={this.state.firstName}
-            >
-              Prénom
-            </InputForm>
-            <p className="help is-danger">{this.state.errorFirstName}</p>
-
-            <InputForm type="email" name="email" value={this.state.email} placeholder="Important pour la quittance">
-              Email
-            </InputForm>
-            <p className="help is-danger">{this.state.errorEmail}</p>
-
-            <InputForm
-              type="number"
-              name="socialSupport"
-              value={this.state.socialSupport}
-              placeholder={this.state.socialSupport}
-            >
-              Aides sociales
-            </InputForm>
+            <FormTenant tenant={this.state} />
 
             <div className="field is-grouped is-grouped-centered">
               <div className="control">
