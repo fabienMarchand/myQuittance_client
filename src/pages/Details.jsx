@@ -28,7 +28,8 @@ class Details extends Component {
       <article className="panel is-link">
         <p className="panel-heading">Mes locations</p>
         {this.state.rentalsList.map((rental, i) => (
-          <a className="panel-block is-active" key={i}>
+          /* Todo: changer le style */
+          <div className="panel-block is-active" key={i}>
             <div className="columns">
               <div className="column is-size-5 has-text-centered	has-text-weight-bold">
                 {rental.name}
@@ -49,15 +50,16 @@ class Details extends Component {
             </div>
 
             </div>
-          </a>
+          </div>
         ))}
 
         <p className="panel-heading ">Mes locataires</p>
         {this.state.tenantList.map((tenant, i) => (
-          <a className="panel-block is-active" key={i}>
+             /* Todo: changer le style */
+          <div className="panel-block is-active" key={i}>
             <div className="columns ">
               <div className="column is-size-5 has-text-centered	has-text-weight-bold">
-                {tenant.lastName} {tenant.firstName} 
+                {tenant.lastName} {tenant.firstName} {tenant._id}
               </div>
               <div className="column has-text-centered">{tenant.email}</div>
               
@@ -75,13 +77,13 @@ class Details extends Component {
             </div>
 
             </div>
-          </a>
+          </div>
         ))}
-
 
         <p className="panel-heading ">Propriétaires</p>
         {this.state.ownerList.map((owner, i) => (
-          <a className="panel-block is-active" key={i}>
+             /* Todo: changer le style */
+          <div className="panel-block is-active" key={i}>
             <div className="columns ">
               <div className="column is-size-5 has-text-centered	has-text-weight-bold">
                 {owner.lastName} {owner.firstName}
@@ -102,10 +104,8 @@ class Details extends Component {
             </div>
 
             </div>
-          </a>
+          </div>
         ))}
-
-
       </article>
       //   </div>
     );
