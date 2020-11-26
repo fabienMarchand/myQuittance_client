@@ -59,7 +59,7 @@ class Details extends Component {
           <div className="panel-block is-active" key={i}>
             <div className="columns ">
               <div className="column is-size-5 has-text-centered	has-text-weight-bold">
-                {tenant.lastName} {tenant.firstName} {tenant._id}
+                {tenant.lastName} {tenant.firstName}
               </div>
               <div className="column has-text-centered">{tenant.email}</div>
               

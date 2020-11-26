@@ -5,17 +5,11 @@ import SelectForm from "./selectForm/SelectForm";
 
  class FormRental extends Component {
      state ={
-        adress: this.props.rentals.adress    
+        adress: ""    
      };
 
-    handleChangeAdress = e =>{
-        console.log("pouet: ")
-        this.setState({
-            adress: e.target.value 
-        })
-    }
 
-    render() {
+    render() {   
         let {
             name,
             adress,
@@ -36,20 +30,21 @@ import SelectForm from "./selectForm/SelectForm";
             selectOwner = this.props.selectOwner;
             selectTenant = this.props.selectTenant;
         }
-      
+    
         return (
             <div>
                 
-            <InputForm type="text" name="name" value={name}>
+            <InputForm type="text" name="name" value={name} onChange={() => ""} >
               Nom de la location
             </InputForm>
-             <p className="help is-danger">{errorName}</p> 
+             <p className="help is-danger">{errorName}</p>  
 
             <TextArea
               name="adress"
               value={adress}
-              onChange={this.handleChangeAdress}
               placeholder="Rue, code postal, ville (retour à la ligne conseillé)"
+              onChange={() => ""}
+          
             >
               Adresse
             </TextArea>
@@ -60,6 +55,7 @@ import SelectForm from "./selectForm/SelectForm";
               name="rent"
               value={rent}
               placeholder={rent}
+              onChange={() => ""}
             >
               Loyer
             </InputForm>
@@ -69,6 +65,7 @@ import SelectForm from "./selectForm/SelectForm";
               name="provision"
               value={provision}
               placeholder={provision}
+              onChange={() => ""}
             >
               Provisions pour charges
             </InputForm>
@@ -78,6 +75,7 @@ import SelectForm from "./selectForm/SelectForm";
               name="fixedCost"
               value={fixedCost}
               placeholder={fixedCost}
+              onChange={() => ""}
             >
               Charges Fixes
             </InputForm>
@@ -87,6 +85,7 @@ import SelectForm from "./selectForm/SelectForm";
               name="TVArate"
               value={TVArate}
               placeholder={TVArate}
+              onChange={() => ""}
             >
               Taux de TVA
             </InputForm>
@@ -96,6 +95,7 @@ import SelectForm from "./selectForm/SelectForm";
               name="owner"
               value={owner}
               selectOption={selectOwner}
+              onChange={() => ""}
             >
               Propriétaire
             </SelectForm>
@@ -104,6 +104,7 @@ import SelectForm from "./selectForm/SelectForm";
               name="tenant"
               value={tenant}
               selectOption={selectTenant}
+              onChange={() => ""}
             >
               Locataire
             </SelectForm>   

@@ -51,15 +51,21 @@ export default {
       .catch(errorHandler);
   },
 
-  create(segment, data){
-    console.log(segment, data);
-     return service.post(segment, data)
+  create(segment, formValues){
+    console.log(segment, formValues);
+     return service.post(segment, formValues)
      .then((res) => res.data);
   },
 
   getAll(segment){
     return service.get(segment)
       .then((res) => res.data);
-  }
+  },
  
+  editOne(segment, formValues){
+    return service.patch(segment, formValues)
+     .then((res) => res.data)
+     .catch(errorHandler);
+  }
+
 };

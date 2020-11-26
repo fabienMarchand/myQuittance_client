@@ -19,12 +19,12 @@ class FormOwner extends Component {
 
              const selectOption = {
                 Masculin: "Masculin",
-                 Feminin: "Feminin",
+                Feminin: "Feminin",
                 };
 
         return (
             <div>
-            <InputForm type="text" name="lastName" value={lastName}>
+            <InputForm type="text" name="lastName" value={lastName} onChange={() => ""}>
               Nom de famille
             </InputForm>
             <p className="help is-danger">{errorLastName}</p>
@@ -33,6 +33,7 @@ class FormOwner extends Component {
               type="text"
               name="firstName"
               value={firstName}
+              onChange={() => ""}
             >
               Prénom
             </InputForm>
@@ -43,6 +44,7 @@ class FormOwner extends Component {
               name="email"
               value={email}
               placeholder="Important pour la quittance"
+              onChange={() => ""}
             >
               Email
             </InputForm>
@@ -53,6 +55,7 @@ class FormOwner extends Component {
               name="city"
               value={city}
               placeholder="Important pour la quittance"
+              onChange={() => ""}
             >
               Ville
             </InputForm>
@@ -63,6 +66,7 @@ class FormOwner extends Component {
               name="gender"
               value={gender}
               selectOption={selectOption}
+              onChange={() => ""}
             >
               Genre
             </SelectForm> 

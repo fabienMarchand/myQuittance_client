@@ -70,7 +70,7 @@ class CreateTenant extends Component {
               </h1>
             </header>
 
-            <FormTenant tenant={this.state} />
+            <FormTenant tenant={this.state}  />
 
             <div className="field is-grouped is-grouped-centered">
               <div className="control">
