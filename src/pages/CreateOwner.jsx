@@ -52,7 +52,6 @@ class CreateOwner extends Component {
 
     if (!email || !lastName || !firstName || !city) {
     } else {
-      console.log(this.state);
       apiHandler.create("/owner", {
         email,
         lastName,
@@ -60,11 +59,11 @@ class CreateOwner extends Component {
         city,
         gender,
       });
+      this.props.history.push("/details");
     }
   };
 
   render() {
- 
     return (
       <div>
         <form
