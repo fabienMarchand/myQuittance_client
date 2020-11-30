@@ -51,21 +51,23 @@ export default {
       .catch(errorHandler);
   },
 
-  create(segment, formValues){
-    console.log(segment, formValues);
-     return service.post(segment, formValues)
-     .then((res) => res.data);
+  create(segment, formValues) {
+    return service.post(segment, formValues).then((res) => res.data);
   },
 
-  getAll(segment){
-    return service.get(segment)
-      .then((res) => res.data);
+  getAll(segment) {
+    return service.get(segment).then((res) => res.data);
   },
- 
-  editOne(segment, formValues){
-    return service.patch(segment, formValues)
-     .then((res) => res.data)
-     .catch(errorHandler);
-  }
 
+  editOne(segment, formValues) {
+    return service
+      .patch(segment, formValues)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
+  deleteItem(segment, id) {
+    return service
+      .delete(`${segment}/${id}`);
+  },
 };

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import InputForm from "./inputForm/InputForm";
 import TextArea from "./textAreaForm/textAreaForm";
 import SelectForm from "./selectForm/SelectForm";
