@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import apiHandler from "../api/apiHandler";
-import InputForm from "../components/Forms/inputForm/InputForm";
-import TextArea from "../components/Forms/textAreaForm/textAreaForm";
-import SelectForm from "../components/Forms/selectForm/SelectForm";
+import FormReceipt from "../components/Forms/FormReceipt";
+import moment from 'moment';
 
 class CreateReceipt extends Component {
   state = {
@@ -13,7 +12,7 @@ class CreateReceipt extends Component {
     adress: "",
     location: "",
     selectRental: "",
-    socialSupport:0,
+    socialSupport: 0,
     TVARate: 0,
     fixedCost: 0,
     provision: 0,
@@ -24,10 +23,27 @@ class CreateReceipt extends Component {
     disabledInput: true,
 
     errorName: "",
-    errorLocation : ""
+    errorLocation: "",
+    errorAdress: "",
+    comeFrom: "create",
+    nameId: "",
   };
 
+
+  calcDate() {
+    const startDate = moment(new Date()).format("YYYY-MM-DD");
+    const begDate = moment(startDate).startOf('months').format("YYYY-MM-DD");
+    const endDate = moment(startDate).endOf('months').format('YYYY-MM-DD');
+    this.setState({
+        startPeriod: begDate,
+        endPeriod: endDate,
+        paymentDate: startDate,
+    });
+  };
+
+
   componentDidMount() {
+    this.calcDate();
     //Get owner element
     apiHandler.getAll("/rental").then((dbRes) => {
       let tempObj = {};
@@ -45,34 +61,12 @@ class CreateReceipt extends Component {
     });
   }
 
-  handleDatasLinked() {
-    console.log("pouet: ", this.state.location);
-    Object.entries(this.state.location).map(([key, value]) => {
-      console.log("key: ", key, " value: ", value);
-      if (value.name === this.state.tenant) {
-        this.setState({
-          TVARate: value.TVARate,
-          fixedCost: value.fixedCost,
-          provision: value.provision,
-          rent: value.rent,
-          owner: value.owner,
-          tenant: value.tenant,
-          locationName: value.name,
-          socialSupport: value.socialSupport
-        });
-      }
-    });
-  }
-
   //permet de set le state
   handleChange = (e) => {
     const name = e.target.name;
+    if (name === "name") this.setState({ errorName: "" });
+    if (name === "tenant") this.setState({ errorLocation: "" });
 
-    if(name === "name") this.setState({errorName : ""});
-    if(name === "tenant") this.setState({errorLocation: ""});
-
-
-    /// A faire évoluer si les "types différents"
     const value =
       e.target.type === "file"
         ? e.target.files[0]
@@ -86,22 +80,39 @@ class CreateReceipt extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    //apiHandler.create('/receipt', {name: this.state.name})
-    
-    if(this.state.name === "") this.setState({errorName : "Le nom ne doit pas être vide"});
-    if(this.state.tenant == "") this.setState({errorLocation: "La location ne peux pas être vide"});
-  
-    if(!this.state.name || !this.state.tenant){
+    this.setState({
+      nameId: `${this.state.name}-${this.state.startPeriod}`,
+    });
 
-    }else{
-      apiHandler.create('/receipt', this.state);
+    if (this.state.name === "")
+      this.setState({ errorName: "Le nom ne doit pas être vide" });
+    if (this.state.tenant === "")
+      this.setState({ errorLocation: "La location ne peux pas être vide" });
+   
+    if (!this.state.name || !this.state.tenant) {
+    } else {
+      apiHandler.create("/receipt", {...this.state,  nameId: `${this.state.name} ${moment(this.state.startPeriod).format('MMMM-YYYY')}`})
+      .then((apiRes) =>{
+        this.props.history.push("/receiptsList");
+      })
+    .catch((apiErr) => console.log(apiErr));
     }
   };
 
+  handleAdd = (receipt) => {
+     this.setState({
+       TVARate: receipt.TVARate,
+       fixedCost: receipt.fixedCost,
+       provision: receipt.provision,
+       rent: receipt.rent,
+       owner: receipt.owner,
+       tenant: receipt.tenant,
+       locationName: receipt.name,
+       socialSupport: receipt.socialSupport,
+     });
+  };
+
   render() {
-    if (this.state.tenant) {
-      this.handleDatasLinked();
-    }
     return (
       <div>
         <form
@@ -115,108 +126,8 @@ class CreateReceipt extends Component {
                 Créer une nouvelle quittance
               </h1>
             </header>
-            <InputForm type="text" name="name" value={this.state.name}>
-              Nom de la quittance
-            </InputForm>
-            <p className="help is-danger">{this.state.errorName}</p>
-            <SelectForm
-              name="tenant"
-              value={this.state.tenant}
-              selectOption={this.state.selectRental}
-              onChange={this.pouet}
-            >
-              Location
-            </SelectForm>
-            <p className="help is-danger">{this.state.errorLocation}</p>
-            <InputForm
-              type="date"
-              name="startPeriod"
-              value={this.state.startPeriod}
-            >
-              Date début période
-            </InputForm>
-            <InputForm
-              type="date"
-              name="endPeriod"
-              value={this.state.endPeriod}
-            >
-              Date fin période
-            </InputForm>
-            <InputForm
-              type="date"
-              name="paymentDate"
-              value={this.state.paymentDate}
-            >
-              Date de paiement
-            </InputForm>
-            <TextArea
-              name="adress"
-              value={this.state.adress}
-              placeholder="Rue, code postal, ville (retour à la ligne conseillé)"
-            >
-              Adresse
-            </TextArea>
-            <p className="help is-danger">{this.state.errorAdress}</p>
-            {this.state.locationName && (
-              <React.Fragment>
-                <InputForm
-                  type="text"
-                  name="tenant"
-                  value={this.state.tenant}
-                  disable={this.state.disabledInput}
-                >
-                  Locataire
-                </InputForm>
-                <InputForm
-                  type="number"
-                  name="rent"
-                  value={this.state.rent}
-                  disable={this.state.disabledInput}
-                >
-                  Loyer
-                </InputForm>
-                <InputForm
-                  type="number"
-                  name="provision"
-                  value={this.state.provision}
-                  disable={this.state.disabledInput}
-                >
-                  Provision pour charges
-                </InputForm>
-                <InputForm
-                  type="number"
-                  name="fixedCost"
-                  value={this.state.fixedCost}
-                  disable={this.state.disabledInput}
-                >
-                  Charges fixes
-                </InputForm>
-                <InputForm
-                  type="number"
-                  name="socialSupport"
-                  value={this.state.socialSupport}
-                  disable={this.state.disabledInput}
-                >
-                  Aides sociales
-                </InputForm>
-                <InputForm
-                  type="number"
-                  name="TVARate"
-                  value={this.state.TVARate}
-                  disable={this.state.disabledInput}
-                >
-                  Taux de TVA
-                </InputForm>
-                <InputForm
-                  type="text"
-                  name="owner"
-                  value={this.state.owner}
-                  disable={this.state.disabledInput}
-                >
-                  Propriétaire
-                </InputForm>
-              </React.Fragment>
-            )}
+            <FormReceipt receipts={this.state} addReceipt={this.handleAdd}/>
+        
             {/* Lors de la refactorisation mettre les boutons en std */}
             <div className="field is-grouped is-grouped-centered">
               <div className="control">
