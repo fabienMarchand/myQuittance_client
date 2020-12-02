@@ -47,7 +47,7 @@ class ReceiptsList extends Component {
                   <button className="button is-primary">
                   <Link
                       to={{
-                        pathname: `/receipt/${receipt.name}`,
+                        pathname: `/receipt/${receipt._id}`,
                         receipt ,
                       }}
                     > Modifier
