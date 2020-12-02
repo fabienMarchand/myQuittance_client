@@ -47,19 +47,25 @@ class CreateOwner extends Component {
       this.setState({ errorEmail: "Le mail ne doit pas être vide" });
     if (firstName === "")
       this.setState({ errorFirstName: "Le prénom ne doit pas être vide" });
-      if (city === "")
+    if (city === "")
       this.setState({ errorCity: "La ville ne doit pas être vide" });
 
     if (!email || !lastName || !firstName || !city) {
     } else {
-      apiHandler.create("/owner", {
-        email,
-        lastName,
-        firstName,
-        city,
-        gender,
-      });
-      this.props.history.push("/details");
+      apiHandler
+        .create("/owner", {
+          email,
+          lastName,
+          firstName,
+          city,
+          gender,
+        })
+        .then((res) => {
+          this.props.history.push("/details");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 

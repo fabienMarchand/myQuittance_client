@@ -100,8 +100,9 @@ class EditReceipt extends Component {
 
     if (!name || (locationName === "Sélectionner un(e) Location")) {
     } else {
-        apiHandler.editOne(`/receipt/${_id}`, this.state);
-        this.props.history.push("/receiptsList");
+        apiHandler.editOne(`/receipt/${_id}`, this.state)
+        .then((apiRes) => this.props.history.push("/receiptsList"))
+        .catch((error) => console.log(error));
     }
   };
 

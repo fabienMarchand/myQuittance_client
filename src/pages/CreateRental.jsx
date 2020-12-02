@@ -86,6 +86,12 @@ class CreateRental extends Component {
         TVArate,
         owner, 
         tenant
+      })
+      .then((res) => {
+        this.props.history.push("/details");
+      })
+      .catch((error) => {
+        console.log(error);
       });
     }
   };
