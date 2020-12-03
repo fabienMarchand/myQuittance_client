@@ -113,7 +113,7 @@ class EditRental extends Component {
       apiHandler
         .editOne(`/rental/${_id}`, this.state)
         .then((res) => {
-        //  this.props.history.push("/details");
+          this.props.history.push("/details");
         })
         .catch((error) => {
           console.log(error);
