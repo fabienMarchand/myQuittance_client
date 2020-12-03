@@ -13,7 +13,7 @@ class CreateReceipt extends Component {
     location: "",
     selectRental: "",
     socialSupport: 0,
-    TVARate: 0,
+    TVArate: 0,
     fixedCost: 0,
     provision: 0,
     rent: 0,
@@ -48,6 +48,7 @@ class CreateReceipt extends Component {
     apiHandler.getAll("/rental").then((dbRes) => {
       let tempObj = {};
       Object.entries(dbRes).map(([key, value]) => {
+        console.log(value);
         Object.entries(value).map(([key1, value1]) => {
           if (key1 === "name") tempObj[key] = value1;
           return null;
@@ -101,7 +102,7 @@ class CreateReceipt extends Component {
 
   handleAdd = (receipt) => {
      this.setState({
-       TVARate: receipt.TVARate,
+      TVArate: receipt.TVArate,
        fixedCost: receipt.fixedCost,
        provision: receipt.provision,
        rent: receipt.rent,

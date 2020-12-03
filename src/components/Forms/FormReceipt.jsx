@@ -16,7 +16,7 @@ class FormReceipt extends Component {
     location: "",
     selectRental: "",
     socialSupport: 0,
-    TVARate: 0,
+    TVArate: 0,
     fixedCost: 0,
     provision: 0,
     rent: 0,
@@ -44,12 +44,15 @@ class FormReceipt extends Component {
 
   handleSelect = (e) => {
     const { name, value } = e.target;
+      this.setState({
+        name: value
+      })
 
     if (name === "locationName") {
        Object.entries(this.props.receipts.location).map(([key, valueLocation]) => {
            if (valueLocation.name === value) {
           this.setState({
-            TVARate: valueLocation.TVARate,
+            TVArate: valueLocation.TVArate,
             fixedCost: valueLocation.fixedCost,
             provision: valueLocation.provision,
             rent: valueLocation.rent,
@@ -98,7 +101,7 @@ class FormReceipt extends Component {
       provision,
       fixedCost,
       socialSupport,
-      TVARate,
+      TVArate,
       owner,
     } = this.props.receipts;
 
@@ -106,14 +109,7 @@ class FormReceipt extends Component {
  
     return (
       <div>
-        <InputForm type="text" 
-        name="name" 
-        value={name}
-        onChange={this.handleChange}>
-          Nom de la quittance
-        </InputForm>
-        <p className="help is-danger">{errorName}</p>
-        <SelectForm
+         <SelectForm
           name="locationName"
           value={locationName}
           selectOption={selectRental}
@@ -122,6 +118,15 @@ class FormReceipt extends Component {
           Location
         </SelectForm>
         <p className="help is-danger">{errorLocation}</p>
+
+        <InputForm type="text" 
+        name="name" 
+        value={name}
+        onChange={this.handleChange}>
+          Nom de la quittance
+        </InputForm>
+        <p className="help is-danger">{errorName}</p>
+     
          <InputForm
           type="date"
           name="startPeriod"
@@ -205,8 +210,8 @@ class FormReceipt extends Component {
             </InputForm>
             <InputForm
               type="number"
-              name="TVARate"
-              value={this.state.TVARate}
+              name="TVArate"
+              value={this.state.TVArate}
               disable={this.state.disabledInput}
               onChange={this.handleChange}
             >
@@ -273,8 +278,8 @@ class FormReceipt extends Component {
             </InputForm>
             <InputForm
               type="number"
-              name="TVARate"
-              value={TVARate}
+              name="TVArate"
+              value={TVArate}
               disable={this.state.disabledInput}
               onChange={this.handleChange}
             >
