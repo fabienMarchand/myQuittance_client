@@ -12,6 +12,7 @@ class EditRental extends Component {
       provision: 0,
       fixedCost: 0,
       TVArate: 0,
+      socialSupport: 0,
       tenant: "",
       owner: "",
       errorName: "",
@@ -71,6 +72,14 @@ class EditRental extends Component {
     });
   }
 
+  getScocialfromTenant = (tenant) => {
+    let socialSupport = 0;
+    apiHandler.getOne("/tenant", tenant).then((dbRes) => {
+      socialSupport = dbRes[0].socialSupport;
+      this.setState({ socialSupport });
+    });
+  };
+
   handleChange = (e) => {
     const name = e.target.name;
 
@@ -82,13 +91,16 @@ class EditRental extends Component {
         : e.target.type === "checkbox"
         ? e.target.checked
         : e.target.value;
-    this.setState({
-      rental: { ...this.state.rental, [name]: value },
+    if (name === "tenant") this.getScocialfromTenant(value);
+
+      this.setState({
+      rental: { ...this.state.rental, [name]: value  },
     });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     const { name, adress, _id } = this.state.rental;
 
     if (name === "")
@@ -101,7 +113,7 @@ class EditRental extends Component {
       apiHandler
         .editOne(`/rental/${_id}`, this.state)
         .then((res) => {
-          this.props.history.push("/details");
+        //  this.props.history.push("/details");
         })
         .catch((error) => {
           console.log(error);

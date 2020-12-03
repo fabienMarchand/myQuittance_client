@@ -10,6 +10,7 @@ class CreateRental extends Component {
     provision: 0,
     fixedCost: 0,
     TVArate: 0,
+    socialSupport: 0,
     tenant: "",
     owner:"",
     errorName: "",
@@ -42,7 +43,7 @@ class CreateRental extends Component {
         let tempObj = {};
         Object.entries(dbRes).map(([key, value]) => {
            Object.entries(value).map(([key1, value1]) => {
-              if(key1 === "completeName") tempObj[key] = value1;
+              if(key1 === "completeName" || key1 === "lastName") tempObj[key] = value1;
               return null;
              })
              return null;
@@ -52,6 +53,15 @@ class CreateRental extends Component {
         });
       });
   }
+
+  getScocialfromTenant = (tenant) => {
+    let socialSupport = 0;
+    apiHandler.getOne("/tenant", tenant)
+    .then((dbRes) => {
+      socialSupport = dbRes[0].socialSupport;
+      this.setState({ socialSupport });
+    });
+  };
 
   handleChange = (e) => {
     const name = e.target.name;
@@ -63,6 +73,7 @@ class CreateRental extends Component {
         : e.target.type === "checkbox"
         ? e.target.checked
         : e.target.value;
+    if(name === "tenant") this.getScocialfromTenant(value);
     this.setState({
       [name]: value,
     });
@@ -70,7 +81,7 @@ class CreateRental extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, adress, rent, provision, fixedCost, TVArate, owner, tenant} = this.state;
+    const { name, adress, rent, provision, fixedCost, TVArate, owner, tenant, socialSupport} = this.state;
 
     if (name === "") this.setState({ errorName: "Le nom ne doit pas être vide" });
     if (adress === "") this.setState({ errorAdress: "L'adresse ne doit pas être vide" });
@@ -85,7 +96,8 @@ class CreateRental extends Component {
         fixedCost,
         TVArate,
         owner, 
-        tenant
+        tenant,
+        socialSupport
       })
       .then((res) => {
         this.props.history.push("/details");

@@ -22,8 +22,8 @@ import SelectForm from "./selectForm/SelectForm";
             tenant,
             selectTenant,
             errorName,
-            errorAdress
-            
+            errorAdress,
+            socialSupport
             } = this.props.rentals;
       
         if(this.props.comeFrom === "edit"){
