@@ -55,6 +55,12 @@ export default {
     return service.post(segment, formValues).then((res) => res.data);
   },
 
+  getOne(segment, id){
+    return service.get(`${segment}/${id}`)
+    .then((res) => res.data)
+    .catch(errorHandler);
+  },
+
   getAll(segment) {
     return service.get(segment).then((res) => res.data);
   },
