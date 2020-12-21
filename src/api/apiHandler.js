@@ -55,10 +55,11 @@ export default {
     return service.post(segment, formValues).then((res) => res.data);
   },
 
-  getOne(segment, id){
-    return service.get(`${segment}/${id}`)
-    .then((res) => res.data)
-    .catch(errorHandler);
+  getOne(segment, id) {
+    return service
+      .get(`${segment}/${id}`)
+      .then((res) => res.data)
+      .catch(errorHandler);
   },
 
   getAll(segment) {
@@ -73,7 +74,20 @@ export default {
   },
 
   deleteItem(segment, id) {
+    return service.delete(`${segment}/${id}`);
+  },
+
+  generatePdf(segment, id) {
     return service
-      .delete(`${segment}/${id}`);
+      .get(`${segment}/${id}`)
+      .then((res) => res )
+      .catch(errorHandler);
+  },
+
+  getPdf(segment, id) {
+    return service
+      .get(`${segment}/${id}`)
+      .then((res) => res )
+      .catch(errorHandler);
   },
 };
