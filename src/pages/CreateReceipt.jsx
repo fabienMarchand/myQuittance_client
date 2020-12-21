@@ -92,7 +92,7 @@ class CreateReceipt extends Component {
    
     if (!this.state.name || !this.state.tenant) {
     } else {
-      apiHandler.create("/receipt", {...this.state,  nameId: `${this.state.name} ${moment(this.state.startPeriod).format('MMMM-YYYY')}`})
+      apiHandler.create("/receipt", {...this.state,  nameId: `${this.state.name}-${moment(this.state.startPeriod).format('MMMM-YYYY')}`})
       .then((apiRes) =>{
         this.props.history.push("/receiptsList");
       })

@@ -61,6 +61,17 @@ class ReceiptsList extends Component {
                   >
                     Supprimer
                   </button>
+                  <button className="button is-info" >
+                  <Link
+                      to={{
+                        pathname: `/pdf/${receipt._id}`,
+                        receipt ,
+                      }}
+                    > PDF
+                    </Link>
+                    
+                  </button>
+
                 </div>
               </div>
             </div>
