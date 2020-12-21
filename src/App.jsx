@@ -16,6 +16,7 @@ import EditOwner from './pages/EditOwner';
 import EditTenant from './pages/EditTenant';
 import EditRental from './pages/EditRental';
 import ReceiptsList from "./pages/ReceiptsList";
+import ViewPDF from "./pages/ViewPDF";
 
 function App() {
   return (
@@ -39,7 +40,8 @@ function App() {
         <Route exact path="/tenant/:id" component={EditTenant} />
         <Route exact path="/owner/:id" component={EditOwner} />
         <Route exact path="/rental/:id" component={EditRental} />
-        
+        {/* PDF */}
+        <Route exact path="/pdf/:id" component={ViewPDF} />
       </Switch>
     </div>
   );
