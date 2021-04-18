@@ -48,7 +48,7 @@ class CreateReceipt extends Component {
     apiHandler.getAll("/rental").then((dbRes) => {
       let tempObj = {};
       Object.entries(dbRes).map(([key, value]) => {
-        console.log(value);
+       
         Object.entries(value).map(([key1, value1]) => {
           if (key1 === "name") tempObj[key] = value1;
           return null;

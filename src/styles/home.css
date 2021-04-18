@@ -1,0 +1,11 @@
+#title-img {
+    background-image: url("https://cdn.pixabay.com/photo/2015/10/31/21/31/bookkeeper-1016299_1280.jpg");
+    height: 100vh;
+    margin: 0;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }

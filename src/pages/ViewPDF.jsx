@@ -21,9 +21,8 @@ class ViewPDF extends Component {
             //  const pdfBlob = new Blob([apiRes.data], { type: "application/pdf" });
             //  saveAs(pdfBlob, 'pouet.pdf')
             // const fileURL = URL.createObjectURL(apiRes.data);
-            // console.log("pouet pouet : ", fileURL)
+           
                 window.open(fileURL);
-            //   console.log(pdfBlob);
             // const pdfBlob = new Blob([apiRes.data], { type: "application/pdf" });
 
             this.setState({
@@ -42,7 +41,6 @@ class ViewPDF extends Component {
 
   render() {
     const { filePdf, numPages, pageNumber } = this.state;
-    console.log(filePdf);
     return (
       <div>
         pouet

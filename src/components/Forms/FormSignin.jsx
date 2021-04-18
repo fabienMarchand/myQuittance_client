@@ -29,7 +29,6 @@ class FormSignin extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
     apiHandler
       .signin(this.state)
       .then((data) => {
